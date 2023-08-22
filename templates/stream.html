@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Stream Dashboard</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/stream.css')}}">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.3/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/socket.io@4.7.2/client-dist/socket.io.min.js"></script>
+<body>
+	<div class="theme-toggler">
+		<input type="checkbox" id="theme-toggle"/>
+	</div>
+	<div class="viewport-card">
+		<nav class = "dashboard-card">
+			<span class = "dash" role="tablist">
+				<li class="dashboard-header">Dashboard</li>
+				<hr>
+				<li class="dashboard-value" id="ww">
+					<input type="radio" name="dash" id="dash-waterwheel" checked>
+					<label for="dash-waterwheel"
+						role ="tab"
+						tabindex="0">
+						Waterwheel
+					</label>
+				</li>
+				<li class="dashboard-value" id="t">
+					<input type="radio" name="dash" id="dash-thermometer">
+					<label for="dash-thermometer"
+						role ="tab"
+						tabindex="0">
+						Thermometer
+					</label>
+				</li>
+			</span>
+		</nav>
+		<div class="data-card">
+			<div class="data" id="ww">
+				<div class="heading">
+					<span class = heading-row>
+						<h3 class="data-heading">Waterwheel - Charge Controller</h3>
+						<p class="scalar" id="timestamp">10:31:34</p>
+					</span>
+					<hr>
+				</div>
+				<div class="waterwheel-data">
+					<span class="scalars">
+						<p class="scalar">
+							9.6 V
+						</p>
+						<p class="scalar">
+							13 W
+						</p>
+					</span>
+					<div class="graph-container">
+						<canvas id="voltage-graph"></canvas>
+					</div>
+					<div class="graph-container">
+						<canvas id="power-graph"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="data" id="t">
+				<div class="heading">
+					<span class="heading-row">
+						<h3 class="data-heading">BLE Thermometer</h3>
+						<p class="scalar" id="timestamp">10:31:34</p>
+					</span>
+					<hr>
+				</div>
+				<div class="scalars">
+					<p class="scalar" id="t-v">210.7 &deg;F</p>
+					<p class="scalar" id="bp-w">211.7 &deg;F</p>
+					<p class="scalar" id="p-atm">0.976 atm</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static', filename = 'js/stream.js') }}"></script>
+	<script>
+		initVoltageGraph({{ voltage_data | tojson }});
+		initPowerGraph({{ power_data | tojson }});
+		// addVoltageData({x:"{{ now | safe }}", y:12});
+		// addVoltageData({x:-30, y:10});
+		// addVoltageData({x:-5, y:15});
+
+		// addData(2, 10.6);
+		// addData(3, 10.4);
+		// addData(4, 10.8);
+		// addData(5, 10.9);
+	</script>
+</body>
+</html>

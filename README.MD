@@ -1,0 +1,1 @@
+LAN website and BLE device manager to monitor outdoor peripherals.

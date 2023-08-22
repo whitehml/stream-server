@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
+:root{
+	--font-color: #fff;
+	--font-color-alt: #000;
+
+	--site-background: #25242a;
+	--hover: #282828;
+	--selected: #282828;
+	
+	--viewport-card-background-dark: #121212;
+	--viewport-card-background-mid: #222417;
+	
+	--top-card-background-dark: #3f3f3f;
+	--top-card-background-mid: #4d4f44;
+	
+	--graph-background-dark: #282828;
+	--graph-background-mid: #36382d;
+
+	--rule-color-dark: #606060;
+	--rule-color-mid: #6b6d62;
+
+	--pop-element-dark: #daf980;
+	--pop-element-mid: #daf980;
+	
+	--padding-base: 5px;
+	--sizing-base: 3vmax;
+}
+
+/* Top Level Decs */
+
+* {
+	font-family: Lato;
+}
+
+body {
+	--viewport-card-background: var(--viewport-card-background-dark);
+	--top-card-background: var(--top-card-background-dark);
+	--graph-background: var(--graph-background-dark);
+	--rule-color: var(--rule-color-dark);
+	--pop-element: var(--pop-element-dark);
+	color: var(--font-color);
+	background: var(--site-background);
+}
+
+body:has(#theme-toggle:checked) { /* Ask Mordecai */
+	--viewport-card-background: var(--viewport-card-background-mid);
+	--top-card-background: var(--top-card-background-mid);
+	--graph-background: var(--graph-background-mid);
+	--rule-color: var(--rule-color-mid);
+	--pop-element: var(--pop-element-mid);
+}
+
+/* Generic HTML Classes */
+
+hr {
+	border: 1px solid var(--rule-color);
+}
+
+canvas {
+	padding: calc(3 * var(--padding-base));
+}
+
+/* Custom Classes */
+
+.viewport-card {
+	/* Card to expand over all of page content */
+	display: flex;
+	min-height: 600px;
+	margin: 2%;
+	border-radius: 15px;
+	background: var(--viewport-card-background);
+}
+
+.dashboard-card {
+	border-radius: 15px;
+	background: var(--top-card-background);
+}
+
+.dash {
+	padding: calc(3 * var(--padding-base));
+	display: flex;
+	flex-direction: column;
+}
+
+.dash li {
+	display: flex;
+	font-size: 130%;
+}
+
+.dashboard-value {
+	align-self: center;
+	margin: calc(2 * var(--padding-base));
+}
+
+.dash hr {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.dash input[type="radio"] {
+	position: absolute;
+	top: 0;
+	left: -9999px;
+}
+
+.dash input[type="radio"]:checked + label {
+	background: var(--selected);
+
+}
+
+.dash label {
+	padding: calc(6 * var(--padding-base));;
+	border-radius: 15px;
+}
+
+.dash label:hover {
+	background: var(--hover);
+}
+
+.dashboard-card:has(#dash-waterwheel:checked) + .data-card > #ww,
+.dashboard-card:has(#dash-thermometer:checked) + .data-card > #t {
+	display: flex;
+}
+
+.data-card {
+	flex: 1;
+}
+
+.data {
+	display: none;
+	flex-direction: column;
+}
+
+.data > .heading {
+	margin: calc(3 * var(--padding-base));
+	font-size: 2em;
+	background: var(--viewport-card-background);
+	position: sticky;
+	top: 0;
+}
+
+.heading-row {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.graph-container {
+	margin: 2%;
+	background: var(--graph-background);
+}
+
+.scalars {
+	display: flex;
+	justify-content: space-around;
+}
+
+.scalar {
+	color: #000;
+	background: var(--pop-element);
+	padding: calc(6 * var(--padding-base));
+	padding-right: calc(12 * var(--padding-base));
+	padding-left: calc(12 * var(--padding-base));
+	border-radius: 80px;
+	margin: 0;
+
+	font-size: calc(1 * var(--sizing-base));
+}
+
+@media (orientation: portrait) or (max-width: 800px){
+
+	.viewport-card {
+		flex-direction: column;
+	}
+	
+	.dash {
+		padding: calc(1 * var(--padding-base));
+		flex-direction: row;
+	}
+
+	.dash li.dashboard-header {
+		flex: 1;
+		font-size: 100%;
+		margin-left: 5px;
+		margin-right: 5px;
+		align-self: center;
+	}
+
+	.dash li.dashboard-value {
+		flex: 1.5;
+		margin: 0;
+		margin-top: calc(2 * var(--padding-base));
+		margin-bottom: calc(2 * var(--padding-base));
+		font-size: 110%;
+		margin-left: 5px;
+	}
+
+	.dash label {
+		padding: calc(1 * var(--padding-base));
+	}
+
+	.data > .heading {
+		font-size: 1em;
+		margin: 0;
+	}
+
+	.heading-row {
+		flex-direction: column;
+	}
+
+	.scalars {
+		flex-direction: column;
+	}
+
+	.scalar {
+		padding: calc(2 * var(--padding-base));
+		padding-right: calc(3 * var(--padding-base));
+		padding-left: calc(3 * var(--padding-base));
+
+		font-size: calc(0.6 * var(--sizing-base));
+	}
+}
